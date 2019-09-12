@@ -151,8 +151,13 @@ print "What is the postgres user's DB? "
 print "(ex. xsshunter)"
 settings["postgres_db"] = raw_input( "Postgres DB: ")
 print ""
+print "What is the postgres host (IP)? "
+print "(ex. 192.168.1.1)"
+settings["postgreql_host"] = raw_input( "Postgres host (IP): ")
+print ""
 print "Generating cookie secret..."
 settings["cookie_secret"] = binascii.hexlify( os.urandom(50) )
+
 
 yaml_config = yaml.dump( settings, default_flow_style=False)
 file_handler = open( "config.yaml", "w" )

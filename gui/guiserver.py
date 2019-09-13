@@ -58,7 +58,6 @@ def make_app():
         (r"/", XSSHunterApplicationHandler),
         (r"/app", XSSHunterApplicationHandler),
         (r"/signup", SignUpHandler),
-        (r"/contact", ContactHandler),
         (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "static/"}),
     ])
 

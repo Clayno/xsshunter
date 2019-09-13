@@ -54,15 +54,13 @@ class ContactHandler(BaseHandler):
         self.write( loader.load( "contact.htm" ).generate() )
 
 def make_app():
-    app = tornado.web.Application([
+    return tornado.web.Application([
         (r"/", XSSHunterApplicationHandler),
         (r"/app", XSSHunterApplicationHandler),
-#        (r"/features", FeaturesHandler),
+        (r"/signup", SignUpHandler),
         (r"/contact", ContactHandler),
         (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "static/"}),
     ])
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/signup", SignUpHandler)])
-    return app
 
 if __name__ == "__main__":
     DOMAIN = settings["domain"]

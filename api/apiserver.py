@@ -656,24 +656,24 @@ class DeleteCollectedPageHandler(BaseHandler):
         })
 
 def make_app():
-    app = tornado.web.Application([(r"/(.*)", HomepageHandler),
+    return tornado.web.Application([
+        (r"/api/register", RegisterHandler),
+        (r"/api/login", LoginHandler),
+        (r"/api/collected_pages", GetCollectedPagesHandler),
+        (r"/api/delete_injection", DeleteInjectionHandler),
+        (r"/api/delete_collected_page", DeleteCollectedPageHandler),
+        (r"/api/user", UserInformationHandler),
+        (r"/api/payloadfires", GetXSSPayloadFiresHandler),
         (r"/api/contactus", ContactUsHandler),
+        (r"/api/resend_injection_email", ResendInjectionEmailHandler),
+        (r"/api/logout", LogoutHandler),
+        (r"/js_callback", CallbackHandler),
         (r"/page_callback", CollectPageHandler),
         (r"/health", HealthHandler),
+        (r"/uploads/(.*)", tornado.web.StaticFileHandler, {"path": "uploads/"}),
         (r"/api/record_injection", InjectionRequestHandler),
-        (r"/js_callback", CallbackHandler)], 
-        cookie_secret=settings["cookie_secret"])
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/register", RegisterHandler)]),
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/login", LoginHandler)]),
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/collected_pages", GetCollectedPagesHandler)]),
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/delete_injection", DeleteInjectionHandler)]),
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/delete_collected_page", DeleteCollectedPageHandler)]),
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/user", UserInformationHandler)]),
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/payloadfires", GetXSSPayloadFiresHandler)]),
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/resend_injection_email", ResendInjectionEmailHandler)]),
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/logout", LogoutHandler)]),
-    app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/uploads/(.*)", tornado.web.StaticFileHandler, {"path": "uploads/"})]),
-    return app
+        (r"/(.*)", HomepageHandler),
+    ], cookie_secret=settings["cookie_secret"])
 
 if __name__ == "__main__":
     args = sys.argv

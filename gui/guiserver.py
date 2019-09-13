@@ -55,7 +55,7 @@ class ContactHandler(BaseHandler):
 
 def make_app():
     app = tornado.web.Application([
-        (r"/", XSSHunterApplicationHander),
+        (r"/", XSSHunterApplicationHandler),
         (r"/app", XSSHunterApplicationHandler),
 #        (r"/features", FeaturesHandler),
         (r"/contact", ContactHandler),

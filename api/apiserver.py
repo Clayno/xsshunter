@@ -656,7 +656,13 @@ class DeleteCollectedPageHandler(BaseHandler):
         })
 
 def make_app():
-    app = tornado.web.Application(cookie_secret=settings["cookie_secret"])
+    app = tornado.web.Application([(r"/(.*)", HomepageHandler),
+        (r"/api/contactus", ContactUsHandler),
+        (r"/page_callback", CollectPageHandler),
+        (r"/health", HealthHandler),
+        (r"/api/record_injection", InjectionRequestHandler),
+        (r"/js_callback", CallbackHandler)], 
+        cookie_secret=settings["cookie_secret"])
     app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/register", RegisterHandler)]),
     app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/login", LoginHandler)]),
     app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/collected_pages", GetCollectedPagesHandler)]),
@@ -667,12 +673,6 @@ def make_app():
     app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/resend_injection_email", ResendInjectionEmailHandler)]),
     app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/api/logout", LogoutHandler)]),
     app.add_handlers(r'(localhost|127\.0\.0\.1)', [(r"/uploads/(.*)", tornado.web.StaticFileHandler, {"path": "uploads/"})]),
-    app.add_handlers([(r"/(.*)", HomepageHandler),
-        (r"/api/contactus", ContactUsHandler),
-        (r"/page_callback", CollectPageHandler),
-        (r"/health", HealthHandler),
-        (r"/api/record_injection", InjectionRequestHandler),
-        (r"/js_callback", CallbackHandler)])
     return app
 
 if __name__ == "__main__":

@@ -2,7 +2,6 @@
 import tornado.ioloop
 import tornado.web
 import tornado.template
-from tornado.routing import HostMatches
 import dns.resolver
 import yaml
 

@@ -22,7 +22,7 @@ function set_loading_bar() {
  * Main XSS Hunter JavaScript
  * ( for the actual app )
  */
-API_SERVER = "//" + document.domain.toString().replace( "www", "api" );
+API_SERVER = "//" + document.domain.toString().replace( "xss", "api" );
 CSRF_TOKEN = "";
 USER = {};
 

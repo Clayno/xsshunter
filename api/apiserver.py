@@ -36,7 +36,7 @@ except IOError:
     exit()
 
 CSRF_EXEMPT_ENDPOINTS = [ "/api/contactus", "/api/register", "/", "/api/login", "/health", "/favicon.ico", "/page_callback", "/api/record_injection" ]
-FORBIDDEN_SUBDOMAINS = [ "www", "api" ]
+FORBIDDEN_SUBDOMAINS = [ "xss", "api" ]
 
 with open( "probe.js", "r" ) as probe_handler:
     probejs = probe_handler.read()
@@ -55,7 +55,7 @@ class BaseHandler(tornado.web.RequestHandler):
         self.set_header("X-XSS-Protection", "1; mode=block")
         self.set_header("X-Content-Type-Options", "nosniff")
         self.set_header("Access-Control-Allow-Headers", "X-CSRF-Token, Content-Type")
-        self.set_header("Access-Control-Allow-Origin", "https://www." + settings["domain"])
+        self.set_header("Access-Control-Allow-Origin", "https://xss." + settings["domain"])
         self.set_header("Access-Control-Allow-Methods", "OPTIONS, PUT, DELETE, POST, GET")
         self.set_header("Access-Control-Allow-Credentials", "true")
         self.set_header("Cache-Control", "no-cache, no-store, must-revalidate")

@@ -55,10 +55,10 @@ class ContactHandler(BaseHandler):
 
 def make_app():
     return tornado.web.Application([
-        (r"/", HomepageHandler),
+        (r"/", XSSHunterApplicationHander),
         (r"/app", XSSHunterApplicationHandler),
-        (r"/features", FeaturesHandler),
-        (r"/signup", SignUpHandler),
+#        (r"/features", FeaturesHandler),
+        (HostMatches(r'(localhost|127\.0\.0\.1)'), r"/signup", SignUpHandler),
         (r"/contact", ContactHandler),
         (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "static/"}),
     ])
